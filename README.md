@@ -27,6 +27,7 @@ ssh root@8.8.8.8
 
 ## postgresql-12-4
 Docker postgrest 12.4
+
 ```sudo docker-compose up -d```
 
 
