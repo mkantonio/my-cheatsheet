@@ -25,4 +25,8 @@ ssh root@8.8.8.8
 ### Salir
 ```\q```
 
+## postgresql-12-4
+Docker postgrest 12.4
+```sudo docker-compose up -d```
+
 
