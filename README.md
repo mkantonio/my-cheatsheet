@@ -1,6 +1,12 @@
 # my-cheatsheet
 varios comandos útiles
 
+## Bash
+### Search text in files
+
+```grep -Ril "text-to-find-here" / ```
+
+<code> source: https://stackoverflow.com/questions/16956810/how-do-i-find-all-files-containing-specific-text-on-linux </code>
 
 ## SSH
 ```bash
