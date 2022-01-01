@@ -1,0 +1,6 @@
+# Django
+
+### How to see RAW SQL query
+```
+https://stackoverflow.com/questions/41389575/django-how-to-see-generated-sql-query/41389728
+```
