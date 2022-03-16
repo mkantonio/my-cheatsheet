@@ -373,12 +373,106 @@ Resumen de selectores
 
 | Methods | Elements | Return data type | Recommend |
 |---|---|---|---|
-| querySelector | 1  | NodeList / null | Yes |
+| querySelector | 1  | HTMLElement / null | Yes |
 | querySelectorAll | many  | NodeList / [] | Yes |
 | getElementById | 1  | HTMLElement / null | Yes |
 | getElementsByTagName | many  | HTMLCollection | No |
 | getElementsByClassName | many  | HTMLCollection | No |
 
+### Modificando contenido HTML
+
+```javascript
+const encabezado = document.querySelector('.contenido');
+console.log(encabezado.innerText);  // trae el string formateado
+console.log(encabezado.textContent);    // trae el string sin formato
+console.log(encabezado.innerHTML);  // trae con contenido html
+
+const imagen = document.querySelector(".card img");
+imagen.src = 'imagen2.jpg';
+```
+
+### Modificando CSS por JS
+```javascript
+const card1 = document.querySelector('h1');
+card1.style.backgroundColor = 'red';    // modificando clases
+card1.style.fontFamily = 'Arial';       // modificando clases
+
+const card2 = document.querySelector('.card');
+card2.classList.add('nueva-clase', 'segunda-clase'); // añadir clases
+card2.classList.remove('card');  // remover clases
+```
+
+### Navegando a través del DOM
+Para iniciar en esto, debemos saber que existen el DOM es un árbol de nodos, todo lo que se renderiza en el navegador es un nodo, sea texto, comentario, espacios, saltos de lineas, etc.
+
+Existen [12 tipos de nodos](https://dom.spec.whatwg.org/#node), pero 4 son los más importantes:
+
+1. document – el “punto de entrada” en el DOM.
+2. nodos de elementos – Etiquetas-HTML, los bloques de construcción del árbol.
+3. nodos de texto – contienen texto.
+4. comentarios – a veces podemos colocar información allí, no se mostrará, pero JS puede leerla desde el DOM.
+
+```javascript
+// Navegación a través de los nodos.
+const card1 = document.querySelector(".card");
+console.log(card1.childNodes);    // lista de hijos - NodeList
+console.log(card1.firstChild);   // primer hijo - Node
+console.log(card1.lastChild);    // ultimo hijo - Node
+console.log(card1.previousSibling);  // anterior hermano - Node
+console.log(card1.nextSibling);      // siguiente hermano - Node
+console.log(card1.parentNode);           // padre - Node
+
+// Navegación a través de los nodos.
+const card2 = document.querySelector(".card");
+console.log(card2.children);    // lista de hijos - HTMLCollection
+console.log(card2.firstElementChild);   // primer hijo - HTMLElement
+console.log(card2.lastElementChild);    // ultimo hijo - HTMLElement
+console.log(card2.previousElementSibling);  // anterior hermano - HTMLElement
+console.log(card2.nextElementSibling);      // siguiente hermano - HTMLElement
+console.log(card2.parentElement);           // padre - HTMLElement
+```
+
+### Eliminando elementos
+```javascript
+// Eliminando por si mismo
+const card1 = document.querySelector(".card");
+card1.remove();
+
+// Eliminando a través del padre
+const padre = document.querySelector(".padre");
+padre.removeChild(padre.children[3]);
+```
+
+### Creando e insertando elementos
+Existen varias formas de agregar elementos:
+* **insertAdjacentHTML**
+* La antigua forma, usando: **appendChild** **insertBefore**
+```javascript
+// 1. Crear elemento <div>
+let div = document.createElement('div');
+
+// 2. Establecer su clase a "alert"
+div.className = "alert";
+
+// 3. Agregar el contenido
+div.innerHTML = "<strong>¡Hola!</strong> Usted ha leído un importante mensaje.";
+
+// 4. elemento.insertAdjacentHTML(where, html) 
+/*    
+    "beforebegin" – inserta html inmediatamente antes de elem
+    "afterbegin" – inserta html en elem, al principio
+    "beforeend" – inserta html en elem, al final
+    "afterend" – inserta html inmediatamente después de elem
+*/
+div.insertAdjacentHTML('beforebegin', '<p>Hola</p>');
+div.insertAdjacentHTML('afterend', '<p>Adiós</p>');
 
 
+// La antigua forma
+const parrafo = document.createElement("P");
+parrafo.textContent = 'Soy un parrafo';
+parrafo.classList.add('clase1', 'clase2');
+const info = document.createElement("DIV");
+info.appendChild(parrafo);
+```
 
