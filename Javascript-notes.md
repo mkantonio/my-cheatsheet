@@ -444,20 +444,28 @@ padre.removeChild(padre.children[3]);
 ```
 
 ### Creando e insertando elementos
-Existen varias formas de agregar elementos:
-* **insertAdjacentHTML**
-* La antigua forma, usando: **appendChild** **insertBefore**
+Existen varias métodos para agregar elementos:
+1. **insertAdjacentHTML**
+2. La antigua forma, usando: **appendChild** **insertBefore**
+
+Por otra parte también existen varias formas de agregar elementos:
+1. Fragment y Template
+    * Es la mejor opción, ya que no hay **reflow** (appendChild)
+2. createElement
+    * Es mucho más verboso
+3. innerHTML
+    * Más fácil de implementar, reescribe el HTML
+    * Al reescribir el HTML, los eventos que pertecen a los elementos se pierden
+
+En este caso vamos a ver los métodos que se usan:
 ```javascript
 // 1. Crear elemento <div>
 let div = document.createElement('div');
-
 // 2. Establecer su clase a "alert"
 div.className = "alert";
-
 // 3. Agregar el contenido
 div.innerHTML = "<strong>¡Hola!</strong> Usted ha leído un importante mensaje.";
-
-// 4. elemento.insertAdjacentHTML(where, html) 
+// 4. Insertar HTML: elemento.insertAdjacentHTML(where, html) 
 /*    
     "beforebegin" – inserta html inmediatamente antes de elem
     "afterbegin" – inserta html en elem, al principio
@@ -476,3 +484,195 @@ const info = document.createElement("DIV");
 info.appendChild(parrafo);
 ```
 
+Ahora veremos las formas en que se adjunta contenido HTML
+* Con Fragment y createElement
+```javascript
+const lista = document.getElementById("lista");
+const arrayItems = ["item1", "item2", "item3"];
+const fragment = document.createDocumentFragment(); // crea el fragmento
+// const fragment = new DocumentFragment();
+
+arrayItems.forEach(function (item) {
+    const li = document.createElement("li");
+    li.textContent = item;
+    fragment.appendChild(li);
+});
+
+lista.appendChild(fragment);
+```
+* con Fragment y Template
+```HTML
+<ul id="lista-dinamica"></ul>
+<template>
+  <li class="list">
+    <b>nombre: </b> <span class="text-danger">descripción...</span>
+  </li>
+</template>
+```
+```javascript
+const lista = document.getElementById("lista-dinamica");
+const arrayItem = ["item 1", "item 2", "item 3"];
+
+const fragment = document.createDocumentFragment();
+const template = document.querySelector("#template-li").content;
+
+arrayItem.forEach((item) => {
+  template.querySelector("span").textContent = item;
+  const clone = template.cloneNode(true);
+  // const clone = document.importNode(template, true);
+  fragment.appendChild(clone);
+});
+
+lista.appendChild(fragment);
+```
+
+### Contexto this (inicial)
+En este caso **this** se refiere al elemento que llama la función.
+```javascript
+const btn = document.querySelector("button");
+btn.addEventListener('click', mostrarBtn);
+
+function mostrarBtn(){
+    this.classList.add('activo');
+}
+```
+
+
+## Eventos
+
+### Agregar eventos de teclado y mouse
+
+[Listado de eventos](https://www.w3schools.com/jsref/dom_obj_event.asp) 
+```javascript
+// Se ejecuta luego de que todo el HTML se haya renderizado
+document.addEventListener("DOMContentLoader", () => {
+    console.log("Eso se ejecuta luego de que todo el HTML se haya cargado");
+});
+
+// 1. Agregando un evento a un elemento HTML usando funcion flecha
+const entradaTexto = document.querySelector(".busqueda");
+entradaTexto.addEventListener("input", (e) => {
+    if(e.target.value == ""){
+        console.log("fallo la validación");
+    }
+});
+
+
+// 2. Usando la sintaxis de funcion declarada
+const entradaTexto2 = document.querySelector(".busqueda");
+entradaTexto2.addEventListener("input", function(e) {
+    if(e.target.value == ""){
+        console.log("fallo la validación");
+    }
+});
+
+
+// 3. Usando la sintaxis de funcion declarada como parametro, la función ya conoce el evento
+const entradaTexto3 = document.querySelector(".busqueda");
+entradaTexto3.addEventListener("input", validacion)
+
+function validacion(){
+    if(e.target.value == ""){
+        console.log("fallo la validación");
+    }
+};
+
+// 4.1. Agregando eventos con contenido HTML generaddo
+const parrafo = document.createElement("P");
+parrafo.textContent = "Contenido de texto";
+parrafo.onclick = funcionSinParametro;
+
+function funcionSinParametro(){
+    console.log("sinParametros");
+}
+
+// 4.2. Agregando eventos con contenido HTML generaddo
+const parrafo2 = document.createElement("P");
+parrafo2.textContent = "Contenido de texto";
+parrafo2.onclick = function () {
+    funcionConParametro(1);
+};
+
+function funcionConParametro(id){
+    console.log(`conParametros ${id}`);
+}
+```
+
+### Eventos de formularios
+```javascript
+const formulario = document.querySelector("#formulario");
+formulario.addEventListener("submit", validarFormulario);
+
+function validarFormulario(){
+    e.preventDefault();
+    console.log("aquí va la lógica de validación");
+    console.log(e.target.action); // Es el atributo ACTION del formulario
+}
+```
+
+### Event Bubbling
+* Los eventos se propagan desde el hijo hacia los padres
+* Para detener esta propagación, se usa el método **e.stopPropagation**
+* También se puede detener esta propagación con **Delegation**
+
+```HTML
+<div class="card">
+    <div class="info">
+        <div class="title">
+            Este es titulo
+        </div>
+    </div>    
+</div>
+```
+Aquí existe el **Bubble Propagation**
+```javascript
+const divCard = document.querySelector(".card");
+const divInfo = document.querySelector(".info");
+const divTitle = document.querySelector(".title");
+
+divCard.addEventListener("click", () => {
+    console.log("click en card");
+});
+divInfo.addEventListener("click", () => {
+    console.log("click en info");
+});
+divTitle.addEventListener("click", () => {
+    console.log("click en title");
+});
+```
+
+Aquí se detiene el **Bubble Propagation** con **stopPropagation**
+```javascript
+const divCard = document.querySelector(".card");
+const divInfo = document.querySelector(".info");
+const divTitle = document.querySelector(".title");
+
+divCard.addEventListener("click", e => {
+    e.stopPropagation();
+    console.log("click en card");
+});
+divInfo.addEventListener("click", e => {
+    e.stopPropagation();
+    console.log("click en info");
+});
+divTitle.addEventListener("click", e => {
+    e.stopPropagation();
+    console.log("click en title");
+});
+```
+
+Aquí se detiene el **Bubble Propagation** con **Delegation**
+```javascript
+const divCard = document.querySelector(".card");
+divCard.addEventListener("click", e => {
+    if(e.target.classList.contains("title")){
+        console.log("click en titulo");
+    }
+    if(e.target.classList.contains("info")){
+        console.log("click en info");
+    }
+    if(e.target.classList.contains("card")){
+        console.log("click en card");
+    }
+});
+```
