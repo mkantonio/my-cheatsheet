@@ -2,6 +2,16 @@
 varios comandos útiles
 
 ## Bash
+
+### chown
+Cambiar propietario de archivos, directorios (-R) y enlaces simbólicos (-h)
+```bash
+chwon user:group /AbsolutePath
+chwon user:group ./RelativePath
+chwon -R user:group ./RelativePath
+chwon -h user:group enlaceSimbolico
+```
+
 ### Search text in files
 
 ```bash
