@@ -352,6 +352,8 @@ const carrito2 = [...carrito, producto];
 
 ## DOM
 * Es un árbol de nodos.
+* Los nodos están compuestos por saltos de líneas, espacios en blanco, texto, elementos, comentarios, etc.
+* Existen [12 tipos de nodos](https://dom.spec.whatwg.org/#node).
 
 ```javascript
 let elemento;
@@ -399,7 +401,7 @@ card1.style.fontFamily = 'Arial';       // modificando clases
 
 const card2 = document.querySelector('.card');
 card2.classList.add('nueva-clase', 'segunda-clase'); // añadir clases
-card2.classList.remove('card');  // remover clases
+card2.classList.remove('card');                      // remover clases
 ```
 
 ### Navegando a través del DOM
@@ -444,7 +446,7 @@ padre.removeChild(padre.children[3]);
 ```
 
 ### Creando e insertando elementos
-Existen varias métodos para agregar elementos:
+Existen varios métodos para agregar elementos:
 1. **insertAdjacentHTML**
 2. La antigua forma, usando: **appendChild** **insertBefore**
 
@@ -534,6 +536,7 @@ btn.addEventListener('click', mostrarBtn);
 
 function mostrarBtn(){
     this.classList.add('activo');
+    // btn.classList.add('activo'); //Es lo mismo de arriba
 }
 ```
 
