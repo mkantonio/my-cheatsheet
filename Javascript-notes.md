@@ -505,7 +505,7 @@ lista.appendChild(fragment);
 * con Fragment y Template
 ```HTML
 <ul id="lista-dinamica"></ul>
-<template>
+<template id="template-li">
   <li class="list">
     <b>nombre: </b> <span class="text-danger">descripción...</span>
   </li>
@@ -548,7 +548,7 @@ function mostrarBtn(){
 [Listado de eventos](https://www.w3schools.com/jsref/dom_obj_event.asp) 
 ```javascript
 // Se ejecuta luego de que todo el HTML se haya renderizado
-document.addEventListener("DOMContentLoader", () => {
+document.addEventListener("DOMContentLoaded", () => {
     console.log("Eso se ejecuta luego de que todo el HTML se haya cargado");
 });
 
