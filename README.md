@@ -61,4 +61,15 @@ Docker postgrest 12.4
 sudo docker-compose up -d
 ```
 
+## Errors in GNU/Linux
+### Error: read only file system
+Others name:
+* read only file system
+* folder lock
+* folders showing lock icon
+
+```bash
+mount -o remount,rw /dev/sdXx
+```
+[source](https://www.linuxadictos.com/solucion-al-error-read-only-file-system.html)
 
