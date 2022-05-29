@@ -72,4 +72,11 @@ Others name:
 mount -o remount,rw /dev/sdXx
 ```
 [source](https://www.linuxadictos.com/solucion-al-error-read-only-file-system.html)
+```bash
+sudo blkid
+nano /etc/fstab
+sudo mount -a
+reboot
+```
+[source-2](https://www.youtube.com/watch?v=FnSJBSTobVo&t=2s)
 
