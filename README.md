@@ -21,7 +21,7 @@ grep -Ril "text-to-find-here" /
 
 ### Print datetime and ping every 30 seconds
 ```bash
-ping -i 5 google.com | xargs -L 1 -I '{}' date '+%Y-%m-%d %H:%M:%S: {}'
+ping -i 30 google.com | xargs -L 1 -I '{}' date '+%Y-%m-%d %H:%M:%S: {}'
 ```
 [source](https://stackoverflow.com/a/37475916)
 
@@ -29,6 +29,11 @@ ping -i 5 google.com | xargs -L 1 -I '{}' date '+%Y-%m-%d %H:%M:%S: {}'
 ```bash
 ssh root@8.8.8.8
 ```
+## Folder size
+```bash
+sudo du -sh /home/user/*
+```
+[source](https://linuxize.com/post/how-get-size-of-file-directory-linux/)
 
 
 ## Postgres
@@ -80,3 +85,8 @@ reboot
 ```
 [source-2](https://www.youtube.com/watch?v=FnSJBSTobVo&t=2s)
 
+## YT-DLP
+descargar con nombre de 100B de longitud de video
+```bash
+yt-dlp -a urls.txt -o "%(title).200B.%(ext)s" -P /home/user/videos/ --restrict-filenames
+```
