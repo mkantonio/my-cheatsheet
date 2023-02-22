@@ -25,7 +25,7 @@ ping -i 30 google.com | xargs -L 1 -I '{}' date '+%Y-%m-%d %H:%M:%S: {}'
 ```
 [source](https://stackoverflow.com/a/37475916)
 
-## Folder size
+### Folder size
 ```bash
 sudo du -sh /home/user/*
 ```
@@ -37,6 +37,32 @@ du -sh * | sort -h
 ```
 [source](https://stackoverflow.com/questions/1019116/using-ls-to-list-directories-and-their-total-sizes)
 
+### Move block files in distinct folder each one
+```bash
+#!/bin/bash
+
+# Definir el número de archivos por bloque
+num_archivos_bloque=300
+
+# Definir el nombre base para las carpetas de destino
+nombre_carpeta_destino="bloque"
+
+# Crear una carpeta para cada bloque de archivos
+bloque=0
+contador=0
+mkdir -p "$nombre_carpeta_destino$bloque"
+for archivo in *.jpg; do
+    if [ $((contador % num_archivos_bloque)) -eq 0 -a $contador -ne 0 ]; then
+        ((bloque++))
+        mkdir -p "$nombre_carpeta_destino$bloque"
+    fi
+    mv "$archivo" "$nombre_carpeta_destino$bloque/"
+    ((contador++))
+done
+
+echo "Se han movido $contador archivos en $((bloque+1)) bloques."
+
+```
 
 ### SSH
 ```bash
