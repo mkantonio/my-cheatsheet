@@ -25,20 +25,23 @@ ping -i 30 google.com | xargs -L 1 -I '{}' date '+%Y-%m-%d %H:%M:%S: {}'
 ```
 [source](https://stackoverflow.com/a/37475916)
 
-### Sort folder size
-```bash
-du -sh * | sort -h
-```
-
-## SSH
-```bash
-ssh root@8.8.8.8
-```
 ## Folder size
 ```bash
 sudo du -sh /home/user/*
 ```
 [source](https://linuxize.com/post/how-get-size-of-file-directory-linux/)
+
+### Sort folder size
+```bash
+du -sh * | sort -h
+```
+[source](https://stackoverflow.com/questions/1019116/using-ls-to-list-directories-and-their-total-sizes)
+
+
+### SSH
+```bash
+ssh root@8.8.8.8
+```
 
 
 ## Postgres
