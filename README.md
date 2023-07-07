@@ -118,7 +118,11 @@ sudo mount -a
 reboot
 ```
 [source-2](https://www.youtube.com/watch?v=FnSJBSTobVo&t=2s)
-
+```bash
+sudo umount /dev/sdb5nano /etc/fstab
+sudo ntfsfix /dev/sdb5
+sudo mount -o remount,rw /dev/sdb5
+```
 ## YT-DLP
 descargar con nombre de 100B de longitud de video
 ```bash
