@@ -1,6 +1,7 @@
 # Power Automate cheatsheet
+example: Conector - Action
 
-Get items from Sharepoint list
+## Sharepoint list - Get items 
 OData Filter, if Column Choice (Grupo/Segmento) and Column Boolean (esEncargado)
 * esEncargado:
 * * true: 1
