@@ -9,3 +9,9 @@ OData Filter, if Column Choice (Grupo/Segmento) and Column Boolean (esEncargado)
 ```
 esEncargado eq 1 and Grupo_x002f_Segmento eq 'Gestion Humana'
 ```
+
+## Control - If
+Column boolean "Escritorio/Silla"
+```
+body('get_element_Colaborador')?['Escritorio_x002f_Silla'] is equal to @{false}
+```
