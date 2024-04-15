@@ -97,3 +97,10 @@ descargar con nombre de 100B de longitud de video
 ```bash
 yt-dlp -a urls.txt -o "%(title).200B.%(ext)s" -P /home/user/videos/ --restrict-filenames
 ```
+
+## generate QR
+NodeJS Package: [link](https://www.npmjs.com/package/qrcode)
+```
+npm install -g qrcode
+qrcode -d F00 -o QR.png "URL"
+```
